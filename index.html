@@ -1,211 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Web Developer Portfolio - HTML, CSS, JavaScript Specialist">
-  <title>Web Developer | Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Calculator - Dark & Light Mode</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="app-wrapper">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1>🧮 Calculator Pro</h1>
+                <div class="header-controls">
+                    <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </header>
 
-<nav class="navbar">
-  <div class="nav-container">
-    <h2 class="logo">💻 Developer</h2>
-    <div class="nav-right">
-      <a href="#home" class="nav-link">Home</a>
-      <a href="#about" class="nav-link">About</a>
-      <a href="#skills" class="nav-link">Skills</a>
-      <a href="#projects" class="nav-link">Projects</a>
-      <a href="#contact" class="nav-link">Contact</a>
-      <button class="theme-btn" onclick="toggleTheme()">🌙</button>
+        <!-- Main Container -->
+        <main class="container">
+            <div class="calculator-wrapper">
+                <!-- Calculator Section -->
+                <section class="calculator-section">
+                    <div class="section-header">
+                        <h2>Calculator</h2>
+                        <button class="mode-toggle" id="modeToggle" title="Toggle Scientific Mode">🔬</button>
+                    </div>
+                    
+                    <!-- Display -->
+                    <div class="display-container">
+                        <input type="text" id="display" class="display" readonly placeholder="0">
+                        <button class="copy-btn" onclick="Calculator.copyToClipboard()" title="Copy Result">📋</button>
+                    </div>
+
+                    <!-- Memory Indicator -->
+                    <div class="memory-display" id="memoryDisplay"></div>
+
+                    <!-- Basic Calculator -->
+                    <div id="basicCalc" class="buttons-section">
+                        <div class="button-grid">
+                            <!-- Row 1 -->
+                            <button class="btn btn-function" onclick="Calculator.clear()">C</button>
+                            <button class="btn btn-function" onclick="Calculator.delete()">DEL</button>
+                            <button class="btn btn-function" onclick="Calculator.toggleSign()">±</button>
+                            <button class="btn btn-operator" onclick="Calculator.setOperation('%')">%</button>
+
+                            <!-- Row 2 -->
+                            <button class="btn btn-function" onclick="Calculator.square()">x²</button>
+                            <button class="btn btn-function" onclick="Calculator.sqrt()">√</button>
+                            <button class="btn btn-operator" onclick="Calculator.setOperation('/')">÷</button>
+                            <button class="btn btn-operator" onclick="Calculator.setOperation('*')">×</button>
+
+                            <!-- Row 3 -->
+                            <button class="btn" onclick="Calculator.append('7')">7</button>
+                            <button class="btn" onclick="Calculator.append('8')">8</button>
+                            <button class="btn" onclick="Calculator.append('9')">9</button>
+                            <button class="btn btn-operator" onclick="Calculator.setOperation('-')">−</button>
+
+                            <!-- Row 4 -->
+                            <button class="btn" onclick="Calculator.append('4')">4</button>
+                            <button class="btn" onclick="Calculator.append('5')">5</button>
+                            <button class="btn" onclick="Calculator.append('6')">6</button>
+                            <button class="btn btn-operator" onclick="Calculator.setOperation('+')">+</button>
+
+                            <!-- Row 5 -->
+                            <button class="btn" onclick="Calculator.append('1')">1</button>
+                            <button class="btn" onclick="Calculator.append('2')">2</button>
+                            <button class="btn" onclick="Calculator.append('3')">3</button>
+                            <button class="btn btn-equals" onclick="Calculator.calculate()">=</button>
+
+                            <!-- Row 6 -->
+                            <button class="btn btn-zero" onclick="Calculator.append('0')">0</button>
+                            <button class="btn" onclick="Calculator.append('.')">.</button>
+                        </div>
+                    </div>
+
+                    <!-- Scientific Calculator -->
+                    <div id="scientificCalc" class="buttons-section" style="display: none;">
+                        <div class="button-grid">
+                            <!-- Memory Row -->
+                            <button class="btn btn-memory" onclick="Calculator.memoryAdd()">M+</button>
+                            <button class="btn btn-memory" onclick="Calculator.memorySubtract()">M−</button>
+                            <button class="btn btn-memory" onclick="Calculator.memoryRecall()">MR</button>
+                            <button class="btn btn-memory" onclick="Calculator.memoryClear()">MC</button>
+
+                            <!-- Trig Row -->
+                            <button class="btn btn-function" onclick="Calculator.sine()">sin</button>
+                            <button class="btn btn-function" onclick="Calculator.cosine()">cos</button>
+                            <button class="btn btn-function" onclick="Calculator.tangent()">tan</button>
+                            <button class="btn btn-operator" onclick="Calculator.setOperation('^')">x^y</button>
+
+                            <!-- Log Row -->
+                            <button class="btn btn-function" onclick="Calculator.logarithm()">log</button>
+                            <button class="btn btn-function" onclick="Calculator.naturalLog()">ln</button>
+                            <button class="btn btn-function" onclick="Calculator.cube()">x³</button>
+                            <button class="btn btn-function" onclick="Calculator.reciprocal()">1÷x</button>
+
+                            <!-- Special Row -->
+                            <button class="btn btn-function" onclick="Calculator.factorial()">n!</button>
+                            <button class="btn btn-function" onclick="Calculator.exponential()">exp</button>
+                            <button class="btn btn-operator" onclick="Calculator.setOperation('%')">%</button>
+                            <button class="btn btn-function" onclick="Calculator.absoluteValue()">|x|</button>
+                        </div>
+                    </div>
+
+                    <!-- History Panel -->
+                    <div class="history-panel">
+                        <div class="history-header">
+                            <span>📜 History</span>
+                            <button class="history-clear" onclick="Calculator.clearHistory()">🗑️</button>
+                        </div>
+                        <div id="historyList" class="history-list"></div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Calculator Pro v3.0 | Modern Design with Dark Mode</p>
+        </footer>
     </div>
-  </div>
-</nav>
 
-<header class="hero" id="home">
-  <div class="hero-wrapper">
-    <div class="hero-content">
-      <div class="profile-badge">
-        <div class="profile-avatar">👨‍💻</div>
-        <span>Professional Freelancer</span>
-      </div>
-      
-      <h1>Craft Your Digital Presence with Expert Web Development</h1>
-      <p class="tagline">Delivering high-quality, responsive websites that drive results</p>
-      
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-number">50+</span>
-          <span class="stat-label">Projects Completed</span>
-        </div>
-        <div class="stat">
-          <span class="stat-number">98%</span>
-          <span class="stat-label">Client Satisfaction</span>
-        </div>
-        <div class="stat">
-          <span class="stat-number">5★</span>
-          <span class="stat-label">Average Rating</span>
-        </div>
-      </div>
-      
-      <p class="hero-description">
-        Frontend specialist creating stunning, fast-loading websites with modern HTML5, CSS3, 
-        and JavaScript. From landing pages to complex web applications, I deliver excellence on every project.
-      </p>
-      
-      <div class="hero-skills-list">
-        <span class="skill-tag">✓ HTML5 & Semantic Code</span>
-        <span class="skill-tag">✓ Responsive Design</span>
-        <span class="skill-tag">✓ Performance Optimized</span>
-        <span class="skill-tag">✓ SEO Friendly</span>
-      </div>
-      
-      <div class="hero-buttons">
-        <a href="#contact" class="btn btn-primary">💼 Get Started</a>
-        <a href="#projects" class="btn btn-secondary">📁 View Portfolio</a>
-      </div>
-      
-      <div class="hero-platforms">
-        <p>Available on:</p>
-        <div class="platforms-icons">
-          <a href="https://fiverr.com" target="_blank" title="Fiverr">💎 Fiverr</a>
-          <a href="https://upwork.com" target="_blank" title="Upwork">🚀 Upwork</a>
-          <a href="https://github.com" target="_blank" title="GitHub">🔗 GitHub</a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="hero-visual">
-      <div class="code-box">
-        <div class="code-header">
-          <span class="code-dot red"></span>
-          <span class="code-dot yellow"></span>
-          <span class="code-dot green"></span>
-        </div>
-        <pre class="code-content">&lt;!-- Your Dream Website --&gt;
-&lt;div class="success"&gt;
-  &lt;h1&gt;Amazing Results 🎉&lt;/h1&gt;
-  &lt;p&gt;Fast • Beautiful • Functional&lt;/p&gt;
-&lt;/div&gt;</pre>
-      </div>
-    </div>
-  </div>
-</header>
-  <div class="container">
-    <h2>About Me</h2>
-    <p>
-      I'm a passionate web developer creating modern, responsive, and clean websites. 
-      I specialize in front-end development with HTML5, CSS3, and JavaScript. 
-      My goal is to deliver high-quality projects for startups and businesses.
-    </p>
-  </div>
-</section>
+    <script src="script.js"></script>
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
 
-<section class="skills" id="skills">
-  <div class="container">
-    <h2>My Skills</h2>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <div class="skill-icon">📄</div>
-        <h3>HTML5</h3>
-        <p>Semantic markup & structure</p>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🎨</div>
-        <h3>CSS3</h3>
-        <p>Responsive & modern design</p>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">⚡</div>
-        <h3>JavaScript</h3>
-        <p>Interactive & dynamic features</p>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">📱</div>
-        <h3>Responsive</h3>
-        <p>Mobile-first development</p>
-      </div>
-    </div>
-  </div>
-</section>
+        // Load theme from localStorage
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
 
-<section class="projects" id="projects">
-  <div class="container">
-    <h2>Featured Projects</h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-header">📊</div>
-        <h3>Calculator App</h3>
-        <p>Advanced calculator with JavaScript logic and smooth UI</p>
-        <a href="#" class="project-link">View Project →</a>
-      </div>
-      <div class="project-card">
-        <div class="project-header">🌐</div>
-        <h3>Landing Page</h3>
-        <p>Beautiful responsive business website with animations</p>
-        <a href="#" class="project-link">View Project →</a>
-      </div>
-      <div class="project-card">
-        <div class="project-header">🛍️</div>
-        <h3>E-Commerce Site</h3>
-        <p>Functional shopping site with product filtering</p>
-        <a href="#" class="project-link">View Project →</a>
-      </div>
-    </div>
-  </div>
-</section>
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
 
-<section class="social-links" id="social">
-  <div class="container">
-    <h2>Connect With Me</h2>
-    <div class="social-icons">
-      <a href="https://wa.me/923345502610" target="_blank" class="social-btn whatsapp" title="WhatsApp">
-        <span>💬</span>
-        <span>WhatsApp</span>
-      </a>
-      <a href="https://github.com/your-username" target="_blank" class="social-btn github" title="GitHub">
-        <span>🐙</span>
-        <span>GitHub</span>
-      </a>
-      <a href="https://fiverr.com/your-username" target="_blank" class="social-btn fiverr" title="Fiverr">
-        <span>💼</span>
-        <span>Fiverr</span>
-      </a>
-      <a href="https://www.upwork.com/freelancers/your-username" target="_blank" class="social-btn upwork" title="Upwork">
-        <span>🚀</span>
-        <span>Upwork</span>
-      </a>
-    </div>
-  </div>
-</section>
+        function updateThemeIcon(theme) {
+            themeToggle.querySelector('.theme-icon').textContent = theme === 'light' ? '🌙' : '☀️';
+        }
 
-<section class="contact" id="contact">
-  <div class="container">
-    <h2>Get In Touch</h2>
-    <form class="contact-form" id="contactForm">
-      <input type="text" id="name" placeholder="Your Name" required>
-      <input type="email" id="email" placeholder="Your Email" required>
-      <select id="subject" required>
-        <option value="">Select Subject</option>
-        <option value="project">Web Project</option>
-        <option value="freelance">Freelance Work</option>
-        <option value="consultation">Consultation</option>
-      </select>
-      <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
-      <button type="submit" class="btn btn-primary">Send Message</button>
-      <p class="form-status" id="formStatus"></p>
-    </form>
-  </div>
-</section>
+        // Scientific Mode Toggle
+        const modeToggle = document.getElementById('modeToggle');
+        const basicCalc = document.getElementById('basicCalc');
+        const scientificCalc = document.getElementById('scientificCalc');
 
-<footer>
-  <div class="container">
-    <p>&copy; 2026 Web Developer | All Rights Reserved</p>
-    <p>Crafted with ❤️ by Me</p>
-  </div>
-</footer>
+        modeToggle.addEventListener('click', () => {
+            const isBasicVisible = basicCalc.style.display !== 'none';
+            basicCalc.style.display = isBasicVisible ? 'none' : 'block';
+            scientificCalc.style.display = isBasicVisible ? 'block' : 'none';
+            modeToggle.style.transform = isBasicVisible ? 'rotate(180deg)' : 'rotate(0deg)';
+        });
 
-<script src="script.js"></script>
+        // Update displays
+        function updateHistoryDisplay() {
+            const history = Calculator.getHistory();
+            const historyList = document.getElementById('historyList');
+            if (history.length === 0) {
+                historyList.innerHTML = '<p class="no-history">No calculations yet</p>';
+                return;
+            }
+            historyList.innerHTML = history.slice(0, 10).map(item => 
+                `<div class="history-item" onclick="navigator.clipboard.writeText('${item.split('=')[1]?.trim() || ''}')" title="Click to copy">${item}</div>`
+            ).join('');
+        }
+
+        function updateMemoryDisplay() {
+            const memoryDisplay = document.getElementById('memoryDisplay');
+            if (Calculator.memory !== 0) {
+                memoryDisplay.textContent = `M: ${Calculator.memory.toFixed(2)}`;
+                memoryDisplay.style.display = 'block';
+            } else {
+                memoryDisplay.style.display = 'none';
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            updateHistoryDisplay();
+            updateMemoryDisplay();
+        });
+    </script>
 </body>
 </html>
